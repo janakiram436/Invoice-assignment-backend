@@ -15,9 +15,17 @@ app.use(express.json());
 
 app.use(cors());
 
+const mongoURI = process.env.MONGO_URI;
+
+if (!mongoURI) {
+  console.error("❌ MongoDB URI is missing!");
+  process.exit(1);
+} else {
+  console.log("✅ MongoDB URI loaded successfully.");
+}
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect(process.env.mongoURI)
   .then(() => {
     console.log("Database is connected to MongoDB");
    // Insert dummy data after successful connection
